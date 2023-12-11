@@ -20,7 +20,31 @@
             padding: 1em;
            
         }
+        #wheel {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            border: 10px solid #333;
+            position: relative;
+            animation: spin 5s ease-out infinite;
+        }
 
+        .slice {
+            position: absolute;
+            width: 50%;
+            height: 100%;
+            background-color: #ffcc00;
+            transform-origin: 100% 50%;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
         header {
             background-color: #b71540;
             color: white;
@@ -94,7 +118,30 @@
         </div>
     <p>Swede & Spicy is a food blog made for and by foodies. We also feature recipes from around the
         world including classic Swedish dishes and traditional Indian recipes.</p>
-    <!-- Add your content here -->
+   
+    <div id="wheel">
+    <!-- Slices representing different cuisine types -->
+    <div class="slice" style="transform: rotate(0deg);"></div>
+    <div class="slice" style="transform: rotate(60deg);"></div>
+    <div class="slice" style="transform: rotate(120deg);"></div>
+    <div class="slice" style="transform: rotate(180deg);"></div>
+    <div class="slice" style="transform: rotate(240deg);"></div>
+    <div class="slice" style="transform: rotate(300deg);"></div>
+</div>
+
+<script>
+    // Function to randomly pick a cuisine type
+    function pickCuisine() {
+        const cuisines = ['Italian', 'Mexican', 'Japanese', 'Indian', 'Greek', 'Thai'];
+        const randomIndex = Math.floor(Math.random() * cuisines.length);
+        return cuisines[randomIndex];
+    }
+
+    // Display the picked cuisine type after the wheel stops spinning
+    document.getElementById('wheel').addEventListener('animationiteration', function () {
+        alert('Your randomly picked cuisine is: ' + pickCuisine());
+    });
+</script>
 </main>
 
 <footer>
