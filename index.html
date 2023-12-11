@@ -14,19 +14,13 @@
             padding: 0;
         }
 
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Merriweather', serif;
-            margin: 0;
-            padding: 1em;
-           
-        }
         #wheel {
             width: 300px;
             height: 300px;
             border-radius: 50%;
             border: 10px solid #333;
-            position: ;
-            animation: spin 5s ease-out infinite;
+            position: relative;
+            cursor: pointer;
             font-family: Arial, sans-serif;
             display: flex;
             align-items: center;
@@ -41,7 +35,24 @@
             height: 100%;
             background-color: #ffcc00;
             transform-origin: 100% 50%;
+            clip-path: polygon(0% 0%, 100% 0%, 50% 50%);
         }
+
+        .slice-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #333;
+            font-weight: bold;
+        }
+
+        .slice1 { transform: rotate(0deg); }
+        .slice2 { transform: rotate(60deg); }
+        .slice3 { transform: rotate(120deg); }
+        .slice4 { transform: rotate(180deg); }
+        .slice5 { transform: rotate(240deg); }
+        .slice6 { transform: rotate(300deg); }
 
         @keyframes spin {
             0% {
@@ -51,6 +62,13 @@
                 transform: rotate(360deg);
             }
         }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Merriweather', serif;
+            margin: 0;
+            padding: 1em;
+           
+        }
+       
         header {
             background-color: #b71540;
             color: white;
@@ -125,28 +143,45 @@
     <p>Swede & Spicy is a food blog made for and by foodies. We also feature recipes from around the
         world including classic Swedish dishes and traditional Indian recipes.</p>
    
-    <div id="wheel">
+<div id="wheel" onclick="startSpinning()">
     <!-- Slices representing different cuisine types -->
-    <div class="slice" style="transform: rotate(0deg);"></div>
-    <div class="slice" style="transform: rotate(60deg);"></div>
-    <div class="slice" style="transform: rotate(120deg);"></div>
-    <div class="slice" style="transform: rotate(180deg);"></div>
-    <div class="slice" style="transform: rotate(240deg);"></div>
-    <div class="slice" style="transform: rotate(300deg);"></div>
+    <div class="slice slice1">
+        <div class="slice-text">Italian</div>
+    </div>
+    <div class="slice slice2">
+        <div class="slice-text">Mexican</div>
+    </div>
+    <div class="slice slice3">
+        <div class="slice-text">Japanese</div>
+    </div>
+    <div class="slice slice4">
+        <div class="slice-text">Indian</div>
+    </div>
+    <div class="slice slice5">
+        <div class="slice-text">Greek</div>
+    </div>
+    <div class="slice slice6">
+        <div class="slice-text">Thai</div>
+    </div>
 </div>
 
 <script>
+    function startSpinning() {
+        document.getElementById('wheel').style.animation = 'spin 5s ease-out infinite';
+        
+        // Display the picked cuisine type after the wheel stops spinning
+        setTimeout(function() {
+            alert('Your randomly picked cuisine is: ' + pickCuisine());
+            document.getElementById('wheel').style.animation = ''; // Reset animation
+        }, 5000); // Set the timeout to match the spin duration
+    }
+
     // Function to randomly pick a cuisine type
     function pickCuisine() {
         const cuisines = ['Italian', 'Mexican', 'Japanese', 'Indian', 'Greek', 'Thai'];
         const randomIndex = Math.floor(Math.random() * cuisines.length);
         return cuisines[randomIndex];
     }
-
-    // Display the picked cuisine type after the wheel stops spinning
-    document.getElementById('wheel').addEventListener('animationiteration', function () {
-        alert('Your randomly picked cuisine is: ' + pickCuisine());
-    });
 </script>
 </main>
 
